@@ -1,0 +1,11 @@
+venv/
+__pycache__/
+*.pyc 
+
+keys/
+uploads/
+encrypted/
+signatures/
+
+database.db 
+.env 
