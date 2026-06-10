@@ -8,6 +8,7 @@ KEYS_DIR = Path(__file__).parent / "keys"
 def generate_keys():
 
     KEYS_DIR.mkdir(exist_ok=True)
+
     private_key = rsa.generate_private_key(
         public_exponent=65537,
         key_size=2048
@@ -31,20 +32,20 @@ def generate_keys():
                 format=serialization.PublicFormat.SubjectPublicKeyInfo
             )
         )
-    
+
     print("RSA Key pair generated successfully.")
 
-    def load_private_key():
-        with open(KEYS_DIR / "private.pem", "rb") as f:
-            return serialization.load_pem_private_key(
-                f.read(),
-                password=None
-            )
-    
-    def load_public_key():
-        with open(KEYS_DIR / "public.pem", "rb") as f:
-            return serialization.load_pem_public_key(
-                f.read()
-            )
-    
-    
+
+def load_private_key():
+    with open(KEYS_DIR / "private.pem", "rb") as f:
+        return serialization.load_pem_private_key(
+            f.read(),
+            password=None
+        )
+
+
+def load_public_key():
+    with open(KEYS_DIR / "public.pem", "rb") as f:
+        return serialization.load_pem_public_key(
+            f.read()
+        )
