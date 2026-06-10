@@ -7,7 +7,7 @@ from flask import (
 )
 
 from services.document_service import DocumentService
-
+from crypto.verifier import verify_signature
 
 app = Flask(__name__)
 
@@ -21,6 +21,9 @@ service = DocumentService()
 def home():
     return render_template("index.html")
 
+@app.route("/verify-page")
+def verify_page():
+    return render_template("verify.html")
 
 @app.route("/upload", methods=["POST"])
 def upload_document():
@@ -42,7 +45,36 @@ def upload_document():
         {signature_path}
         """
     )
+@app.route("/verify", methods=["POST"])
+def verify_document():
 
+    document = request.files["document"]
+    signature = request.files["signature"]
+
+    document_path = UPLOAD_DIR / document.filename
+
+    signature_path = (
+        Path("signatures") /
+        signature.filename
+    )
+
+    document.save(document_path)
+    signature.save(signature_path)
+
+    result = verify_signature(
+        document_path,
+        signature_path
+    )
+
+    if result:
+        message = "✓ VALID SIGNATURE"
+    else:
+        message = "✗ INVALID SIGNATURE"
+
+    return render_template(
+        "result.html",
+        message=message
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)

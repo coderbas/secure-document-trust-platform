@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Verify Signature</title>
+</head>
+
+<body>
+
+    <h1>Verify Document Signature</h1>
+
+    <form action="/verify" method="POST" enctype="multipart/form-data">
+
+        <label>Document:</label>
+        <br>
+
+        <input type="file" name="document" required>
+
+        <br><br>
+
+        <label>Signature File:</label>
+        <br>
+
+        <input type="file" name="signature" required>
+
+        <br><br>
+
+        <button type="submit">
+            Verify Signature
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="/">
+        Back Home
+    </a>
+
+</body>
+
+</html>

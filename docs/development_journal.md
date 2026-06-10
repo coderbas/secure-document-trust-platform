@@ -230,3 +230,39 @@ Result:
 
 - Upload interface implemented.
 - Upload-to-sign workflow completed.
+
+## Day 5
+
+### Activities Completed
+
+- Implemented browser-based signature verification portal.
+- Added document and signature upload functionality.
+- Integrated verification engine with Flask application.
+- Successfully verified authentic signed documents.
+- Successfully detected tampered documents.
+
+### Testing Results
+
+Test Case 1:
+Original signed document.
+
+Result:
+✓ VALID SIGNATURE
+
+Test Case 2:
+Document modified after signing.
+
+Result:
+✗ INVALID SIGNATURE
+
+### Security Properties Demonstrated
+
+- Integrity
+- Authentication
+- Non-Repudiation
+- Tamper Detection
+
+### Deliverables Completed
+
+- Verification portal implemented.
+- End-to-end signing and verification workflow completed.
