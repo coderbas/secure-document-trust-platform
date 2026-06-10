@@ -6,9 +6,30 @@
 
 #sign_document("uploads/sample.txt")
 
-from crypto.verifier import verify_signature
+#from crypto.verifier import verify_signature
 
-verify_signature(
-    "uploads/sample.txt",
-    "crypto/signatures/sample.sig"
+#verify_signature(
+ #   "uploads/sample.txt",
+ #   "crypto/signatures/sample.sig"
+#)
+
+from crypto.encryptor import(
+    generate_aes_key,
+    encrypt_file,
+    decrypt_file
 )
+
+key = generate_aes_key()
+
+encrypted_file = encrypt_file(
+    "uploads/sample.txt",
+    key
+)
+
+plaintext = decrypt_file(
+    encrypted_file,
+    key
+)
+
+print("\nRecoveredj Data:")
+print(plaintext.decode())
