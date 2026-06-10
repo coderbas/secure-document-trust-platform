@@ -1,35 +1,48 @@
-#from crypto.key_manager import generate_keys
+from pathlib import Path
 
-#generate_keys()
-
-#from crypto.signer import sign_document
-
-#sign_document("uploads/sample.txt")
-
-#from crypto.verifier import verify_signature
-
-#verify_signature(
- #   "uploads/sample.txt",
- #   "crypto/signatures/sample.sig"
-#)
-
-from crypto.encryptor import(
-    generate_aes_key,
-    encrypt_file,
-    decrypt_file
+from flask import (
+    Flask,
+    render_template,
+    request
 )
 
-key = generate_aes_key()
+from services.document_service import DocumentService
 
-encrypted_file = encrypt_file(
-    "uploads/sample.txt",
-    key
-)
 
-plaintext = decrypt_file(
-    encrypted_file,
-    key
-)
+app = Flask(__name__)
 
-print("\nRecoveredj Data:")
-print(plaintext.decode())
+UPLOAD_DIR = Path("uploads")
+UPLOAD_DIR.mkdir(exist_ok=True)
+
+service = DocumentService()
+
+
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+
+@app.route("/upload", methods=["POST"])
+def upload_document():
+
+    file = request.files["document"]
+
+    file_path = UPLOAD_DIR / file.filename
+
+    file.save(file_path)
+
+    signature_path = service.sign(file_path)
+
+    return render_template(
+        "result.html",
+        message=f"""
+        Document uploaded and signed successfully.
+
+        Signature:
+        {signature_path}
+        """
+    )
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

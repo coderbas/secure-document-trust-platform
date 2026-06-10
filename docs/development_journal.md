@@ -89,3 +89,144 @@ Establish the project architecture, development environment, repository structur
 
 ### Milestone Status
 ✅ Milestone 1: RSA Key Management Module Completed
+
+## Day 2
+
+### Activities Completed
+
+- Implemented RSA digital signature generation module.
+- Successfully signed documents using RSA-2048 private key.
+- Generated and stored digital signatures in binary (.sig) format.
+- Tested signing process on sample document.
+
+### Security Concepts Demonstrated
+
+- Authentication
+- Integrity
+- Non-repudiation
+
+### Challenges Encountered
+
+- Import error caused by incorrect indentation of key loading functions.
+
+### Resolution
+
+- Moved load_private_key() and load_public_key() functions outside generate_keys().
+
+### Deliverables Completed
+
+- signer.py module implemented.
+- Digital signature generation successfully tested.
+
+### Next Steps
+
+- Implement signature verification engine.
+- Demonstrate tamper detection.
+
+### Verification Engine
+
+- Implemented RSA signature verification using the public key.
+- Successfully validated legitimate signatures.
+- Implemented tamper detection functionality.
+- Demonstrated that modifying a signed document invalidates its signature.
+
+### Security Properties Demonstrated
+
+- Integrity
+- Authentication
+- Non-Repudiation
+
+### Testing Results
+
+Test Case 1:
+Original document verified successfully.
+
+Result:
+✓ VALID
+
+Test Case 2:
+Document modified after signing.
+
+Result:
+✗ INVALID
+
+Conclusion:
+The verification engine successfully detects unauthorized modifications.
+
+
+ok## Day 3
+
+### Activities Completed
+
+- Implemented AES-256-GCM encryption module.
+- Implemented AES-256-GCM decryption module.
+- Generated secure AES-256 keys.
+- Used randomly generated nonces for each encryption operation.
+- Successfully encrypted and decrypted test documents.
+
+### Security Properties Demonstrated
+
+- Confidentiality
+- Data Protection
+
+### Testing Results
+
+Test Case 1:
+Encrypt document and store encrypted output.
+
+Result:
+Success
+
+Test Case 2:
+Decrypt encrypted document using correct AES key.
+
+Result:
+Original plaintext recovered successfully.
+
+### Security Considerations
+
+- AES-256-GCM selected because it provides confidentiality, integrity, and authenticated encryption.
+- Unique nonce generated for each encryption operation.
+
+### Deliverables Completed
+
+- encryptor.py module implemented.
+- Encrypted file storage mechanism implemented.
+- Decryption workflow validated.
+
+### Next Steps
+
+- Refactor cryptographic modules.
+- Design Flask application architecture.
+- Build document upload and verification dashboard.
+
+## Day 4
+
+### Activities Completed
+
+- Integrated Flask frontend with cryptographic backend.
+- Implemented document upload functionality.
+- Implemented web-based document signing workflow.
+- Connected uploaded files to RSA signature generation module.
+- Successfully generated signatures through the web interface.
+
+### Security Features Demonstrated
+
+- Authentication
+- Integrity
+- Non-Repudiation
+
+### Testing Results
+
+Test Case:
+Upload document through browser interface.
+
+Result:
+- File stored successfully.
+- Digital signature generated successfully.
+- Signature file created and stored.
+
+### Deliverables Completed
+
+- Upload interface implemented.
+- Upload-to-sign workflow completed.
