@@ -1,42 +1,41 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Verify Signature</title>
-</head>
+{% block content %}
 
-<body>
+<div class="card shadow">
 
-    <h1>Verify Document Signature</h1>
+    <div class="card-body">
 
-    <form action="/verify" method="POST" enctype="multipart/form-data">
-
-        <label>Document:</label>
-        <br>
-
-        <input type="file" name="document" required>
-
-        <br><br>
-
-        <label>Signature File:</label>
-        <br>
-
-        <input type="file" name="signature" required>
-
-        <br><br>
-
-        <button type="submit">
+        <h2>
             Verify Signature
-        </button>
+        </h2>
 
-    </form>
+        <form action="/verify" method="POST" enctype="multipart/form-data">
 
-    <br>
+            <label>
+                Document
+            </label>
 
-    <a href="/">
-        Back Home
-    </a>
+            <input type="file" name="document" class="form-control" required>
 
-</body>
+            <br>
 
-</html>
+            <label>
+                Signature
+            </label>
+
+            <input type="file" name="signature" class="form-control" required>
+
+            <br>
+
+            <button class="btn btn-success" type="submit">
+                Verify
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

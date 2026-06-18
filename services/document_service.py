@@ -1,10 +1,10 @@
 from crypto.signer import sign_document
 from crypto.verifier import verify_signature
-from crypto.encryptor import(
+from crypto.encryptor import (
     generate_aes_key,
     encrypt_file,
-    decrypt_file
-) 
+    decrypt_and_save
+)
 
 
 class DocumentService:
@@ -28,7 +28,7 @@ class DocumentService:
         )
 
     def decrypt(self, file_path):
-        return decrypt_file(
+        return decrypt_and_save(
             file_path,
             self.aes_key
         )

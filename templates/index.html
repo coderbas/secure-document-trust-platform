@@ -1,43 +1,185 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Secure Document Trust Platform</title>
-</head>
+{% block content %}
 
-<body>
+<div class="row mb-4">
 
-    <h1>Secure Document Trust Platform</h1>
+    <div class="col-md-3">
 
-    <p>
-        Upload a document to sign, verify,
-        encrypt, or decrypt.
-    </p>
+        <div class="card shadow text-center">
 
-    <hr>
+            <div class="card-body">
 
-    <h2>Upload Document</h2>
+                <h5>Documents Signed</h5>
 
-    <form action="/upload" method="POST" enctype="multipart/form-data">
+                <h2>{{ stats.signed }}</h2>
 
-        <input type="file" name="document" required>
+            </div>
 
-        <br><br>
+        </div>
 
-        <button type="submit">
-            Upload
-        </button>
+    </div>
 
-    </form>
+    <div class="col-md-3">
 
-    <hr>
+        <div class="card shadow text-center">
 
-    <h2>Verification</h2>
+            <div class="card-body">
 
-    <a href="/verify-page">
-        Verify Document Signature
-    </a>
+                <h5>Documents Verified</h5>
 
-</body>
+                <h2>{{ stats.verified }}</h2>
 
-</html>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card shadow text-center">
+
+            <div class="card-body">
+
+                <h5>Tampering Events</h5>
+
+                <h2>{{ stats.tampered }}</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card shadow text-center">
+
+            <div class="card-body">
+
+                <h5>Files Encrypted</h5>
+
+                <h2>{{ stats.encrypted }}</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="card shadow mb-4">
+
+    <div class="card-body">
+
+        <h2 class="card-title">
+            Document Signing Portal
+        </h2>
+
+        <p>
+            Upload a document to generate a digital signature.
+        </p>
+
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+
+            <input type="file" name="document" class="form-control" required>
+
+            <br>
+
+            <button class="btn btn-primary" type="submit">
+                Sign Document
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<div class="card shadow mb-4">
+
+    <div class="card-body">
+
+        <h2>
+            Verification Portal
+        </h2>
+
+        <p>
+            Verify document authenticity.
+        </p>
+
+        <a href="/verify-page" class="btn btn-success">
+            Verify Signature
+        </a>
+
+    </div>
+
+</div>
+
+
+<div class="card shadow mb-4">
+
+    <div class="card-body">
+
+        <h2>
+            Encryption Portal
+        </h2>
+
+        <p>
+            Encrypt sensitive documents using AES-256-GCM.
+        </p>
+
+        <a href="/encrypt-page" class="btn btn-warning">
+            Encrypt Document
+        </a>
+
+    </div>
+
+</div>
+
+<div class="card shadow mb-4">
+
+    <div class="card-body">
+
+        <h2>
+            Decryption Portal
+        </h2>
+
+        <p>
+            Recover encrypted documents.
+        </p>
+
+        <a href="/decrypt-page" class="btn btn-info">
+            Decrypt Document
+        </a>
+
+    </div>
+
+</div>
+
+
+<div class="card shadow">
+
+    <div class="card-body">
+
+        <h2>
+            Audit Trail
+        </h2>
+
+        <p>
+            View all cryptographic operations.
+        </p>
+
+        <a href="/audit-logs" class="btn btn-dark">
+            View Audit Logs
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,20 +1,55 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Operation Result</title>
-</head>
+{% block content %}
 
-<body>
+<div class="card shadow">
 
-    <h1>Operation Successful</h1>
+    <div class="card-body">
 
-    <p>{{ message }}</p>
+        <h2>
+            Operation Result
+        </h2>
 
-    <a href="/">
-        Back to Home
-    </a>
+        <hr>
 
-</body>
+        {% if status == "valid" %}
 
-</html>
+        <div class="alert alert-success">
+
+            <h4>✓ VALID SIGNATURE</h4>
+
+            <p>
+                Document integrity verified.
+            </p>
+
+        </div>
+
+        {% elif status == "invalid" %}
+
+        <div class="alert alert-danger">
+
+            <h4>✗ INVALID SIGNATURE</h4>
+
+            <p>
+                Document has been modified or signature is incorrect.
+            </p>
+
+        </div>
+
+        {% else %}
+
+        <div class="alert alert-info">
+            {{ message }}
+        </div>
+
+        {% endif %}
+
+        <a href="/" class="btn btn-secondary">
+            Back Home
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

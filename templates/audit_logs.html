@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-body">
+
+        <h2>
+            Audit Logs
+        </h2>
+
+        <hr>
+
+        <table class="table table-striped">
+
+            <thead>
+
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Operation</th>
+                    <th>Filename</th>
+                    <th>Status</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for log in logs %}
+
+                <tr>
+
+                    <td>{{ log[0] }}</td>
+                    <td>{{ log[1] }}</td>
+                    <td>{{ log[2] }}</td>
+                    <td>
+
+                        {% if log[3] == "VALID" %}
+
+                        <span class="badge bg-success">
+                            VALID
+                        </span>
+
+                        {% elif log[3] == "INVALID" %}
+
+                        <span class="badge bg-danger">
+                            INVALID
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-primary">
+                            SUCCESS
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        <a href="/" class="btn btn-secondary">
+            Back Home
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

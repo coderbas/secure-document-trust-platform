@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-body">
+
+        <h2>
+            Encrypt Document
+        </h2>
+
+        <p>
+            Upload a file to encrypt using AES-256-GCM.
+        </p>
+
+        <form action="/encrypt" method="POST" enctype="multipart/form-data">
+
+            <input type="file" name="document" class="form-control" required>
+
+            <br>
+
+            <button type="submit" class="btn btn-warning">
+                Encrypt
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
