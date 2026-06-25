@@ -14,6 +14,7 @@ from flask import (
     render_template,
     request
 )
+from werkzeug.utils import secure_filename
 
 from services.document_service import DocumentService
 from crypto.verifier import verify_signature
@@ -47,7 +48,7 @@ def upload_document():
 
     file = request.files["document"]
 
-    file_path = UPLOAD_DIR / file.filename
+    file_path = UPLOAD_DIR / secure_filename(file.filename)
 
     file.save(file_path)
 
@@ -74,30 +75,25 @@ def verify_document():
     document = request.files["document"]
     signature = request.files["signature"]
 
-    document_path = UPLOAD_DIR / document.filename
+    document_path = UPLOAD_DIR / secure_filename(document.filename)
 
     signature_path = (
         Path("signatures") /
-        signature.filename
+        secure_filename(signature.filename)
     )
-    log_operation(
-    "VERIFY",
-    document.filename,
-    "VALID"
-     )
-    
-    log_operation(
-    "VERIFY",
-    document.filename,
-    "INVALID"
-    )
-    
+
     document.save(document_path)
     signature.save(signature_path)
 
     result = verify_signature(
         document_path,
         signature_path
+    )
+
+    log_operation(
+        "VERIFY",
+        document.filename,
+        "VALID" if result else "INVALID"
     )
 
     if result:
@@ -130,7 +126,7 @@ def encrypt_document():
 
     document = request.files["document"]
 
-    file_path = UPLOAD_DIR / document.filename
+    file_path = UPLOAD_DIR / secure_filename(document.filename)
 
     document.save(file_path)
 
@@ -160,7 +156,7 @@ def decrypt_document():
 
     encrypted_path = (
         Path("encrypted") /
-        document.filename
+        secure_filename(document.filename)
     )
 
     document.save(

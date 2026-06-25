@@ -2,32 +2,21 @@
 
 {% block content %}
 
-<div class="card shadow">
+<div class="panel">
+    <p class="panel-eyebrow">Operation 03</p>
+    <h2 class="panel-title">Encrypt a document</h2>
+    <p class="panel-desc">Upload a file to seal it with AES-256-GCM. A fresh random nonce is generated for this
+        operation and stored with the ciphertext.</p>
 
-    <div class="card-body">
-
-        <h2>
-            Encrypt Document
-        </h2>
-
-        <p>
-            Upload a file to encrypt using AES-256-GCM.
-        </p>
-
-        <form action="/encrypt" method="POST" enctype="multipart/form-data">
-
-            <input type="file" name="document" class="form-control" required>
-
-            <br>
-
-            <button type="submit" class="btn btn-warning">
-                Encrypt
-            </button>
-
-        </form>
-
-    </div>
-
+    <form action="/encrypt" method="POST" enctype="multipart/form-data">
+        <div class="field">
+            <label for="encrypt-document">Document</label>
+            <input type="file" id="encrypt-document" name="document" required>
+        </div>
+        <button class="btn btn-primary" type="submit">Encrypt document</button>
+    </form>
 </div>
+
+<a href="/" class="back-link">&larr; Back home</a>
 
 {% endblock %}

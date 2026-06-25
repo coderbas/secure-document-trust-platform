@@ -2,40 +2,25 @@
 
 {% block content %}
 
-<div class="card shadow">
+<div class="panel">
+    <p class="panel-eyebrow">Operation 02</p>
+    <h2 class="panel-title">Verify a signature</h2>
+    <p class="panel-desc">Upload the original document together with its .sig file. A valid result means the document
+        has not changed since it was signed.</p>
 
-    <div class="card-body">
-
-        <h2>
-            Verify Signature
-        </h2>
-
-        <form action="/verify" method="POST" enctype="multipart/form-data">
-
-            <label>
-                Document
-            </label>
-
-            <input type="file" name="document" class="form-control" required>
-
-            <br>
-
-            <label>
-                Signature
-            </label>
-
-            <input type="file" name="signature" class="form-control" required>
-
-            <br>
-
-            <button class="btn btn-success" type="submit">
-                Verify
-            </button>
-
-        </form>
-
-    </div>
-
+    <form action="/verify" method="POST" enctype="multipart/form-data">
+        <div class="field">
+            <label for="verify-document">Document</label>
+            <input type="file" id="verify-document" name="document" required>
+        </div>
+        <div class="field">
+            <label for="verify-signature">Signature (.sig)</label>
+            <input type="file" id="verify-signature" name="signature" required>
+        </div>
+        <button class="btn btn-primary" type="submit">Verify signature</button>
+    </form>
 </div>
+
+<a href="/" class="back-link">&larr; Back home</a>
 
 {% endblock %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Secure Document Trust Platform{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="inner">
+            <p class="brand-eyebrow">RSA-2048 &middot; AES-256-GCM &middot; SHA-256</p>
+            <h1 class="brand-title"><a href="/">Secure Document Trust Platform</a></h1>
+        </div>
+    </header>
+
+    <main class="wrap">
+        {% block content %}{% endblock %}
+
+        <footer class="tech-footer">
+            Notarized with RSA-PSS signatures &middot; sealed with AES-256-GCM<br>
+            Abdulbasit Buhari &middot; Student ID 7537013
+        </footer>
+    </main>
+
+</body>
+
+</html>

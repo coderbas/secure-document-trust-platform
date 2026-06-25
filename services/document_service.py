@@ -1,7 +1,7 @@
 from crypto.signer import sign_document
 from crypto.verifier import verify_signature
+from crypto.aes_key_manager import load_or_create_key
 from crypto.encryptor import (
-    generate_aes_key,
     encrypt_file,
     decrypt_and_save
 )
@@ -10,7 +10,10 @@ from crypto.encryptor import (
 class DocumentService:
 
     def __init__(self):
-        self.aes_key = generate_aes_key()
+        # Loads the same AES key every time the app starts, instead of
+        # generating a brand new one each run (which would make every
+        # previously-encrypted file permanently undecryptable).
+        self.aes_key = load_or_create_key()
 
     def sign(self, file_path):
         return sign_document(file_path)

@@ -2,184 +2,87 @@
 
 {% block content %}
 
-<div class="row mb-4">
+<div class="stat-strip">
+    <div class="stat-cell">
+        <span class="stat-value">{{ stats.signed }}</span>
+        <span class="stat-label">Signed</span>
+    </div>
+    <div class="stat-cell">
+        <span class="stat-value">{{ stats.verified }}</span>
+        <span class="stat-label">Verified</span>
+    </div>
+    <div class="stat-cell">
+        <span class="stat-value">{{ stats.tampered }}</span>
+        <span class="stat-label">Tampered</span>
+    </div>
+    <div class="stat-cell">
+        <span class="stat-value">{{ stats.encrypted }}</span>
+        <span class="stat-label">Encrypted</span>
+    </div>
+</div>
 
-    <div class="col-md-3">
+<div class="ledger">
 
-        <div class="card shadow text-center">
-
-            <div class="card-body">
-
-                <h5>Documents Signed</h5>
-
-                <h2>{{ stats.signed }}</h2>
-
-            </div>
-
+    <div class="ledger-row">
+        <span class="ledger-index">01</span>
+        <div class="ledger-body">
+            <h2 class="ledger-title">Sign a document</h2>
+            <p class="ledger-desc">Upload a file to generate an RSA-PSS signature over it.</p>
         </div>
-
+        <a href="#sign-form" class="btn btn-primary">Sign</a>
     </div>
 
-    <div class="col-md-3">
-
-        <div class="card shadow text-center">
-
-            <div class="card-body">
-
-                <h5>Documents Verified</h5>
-
-                <h2>{{ stats.verified }}</h2>
-
-            </div>
-
+    <div class="ledger-row">
+        <span class="ledger-index">02</span>
+        <div class="ledger-body">
+            <h2 class="ledger-title">Verify a signature</h2>
+            <p class="ledger-desc">Check whether a document still matches its signature.</p>
         </div>
-
+        <a href="/verify-page" class="btn">Verify</a>
     </div>
 
-    <div class="col-md-3">
-
-        <div class="card shadow text-center">
-
-            <div class="card-body">
-
-                <h5>Tampering Events</h5>
-
-                <h2>{{ stats.tampered }}</h2>
-
-            </div>
-
+    <div class="ledger-row">
+        <span class="ledger-index">03</span>
+        <div class="ledger-body">
+            <h2 class="ledger-title">Encrypt a document</h2>
+            <p class="ledger-desc">Seal a file with AES-256-GCM authenticated encryption.</p>
         </div>
-
+        <a href="/encrypt-page" class="btn">Encrypt</a>
     </div>
 
-    <div class="col-md-3">
-
-        <div class="card shadow text-center">
-
-            <div class="card-body">
-
-                <h5>Files Encrypted</h5>
-
-                <h2>{{ stats.encrypted }}</h2>
-
-            </div>
-
+    <div class="ledger-row">
+        <span class="ledger-index">04</span>
+        <div class="ledger-body">
+            <h2 class="ledger-title">Decrypt a document</h2>
+            <p class="ledger-desc">Recover the original file from a sealed .bin archive.</p>
         </div>
+        <a href="/decrypt-page" class="btn">Decrypt</a>
+    </div>
 
+    <div class="ledger-row">
+        <span class="ledger-index">05</span>
+        <div class="ledger-body">
+            <h2 class="ledger-title">Audit trail</h2>
+            <p class="ledger-desc">Review every cryptographic operation logged by the platform.</p>
+        </div>
+        <a href="/audit-logs" class="btn btn-quiet">View log</a>
     </div>
 
 </div>
 
+<div class="panel" id="sign-form" style="margin-top: 3rem;">
+    <p class="panel-eyebrow">Operation 01</p>
+    <h2 class="panel-title">Sign a document</h2>
+    <p class="panel-desc">Upload a file. The platform hashes it and signs the hash with the RSA-2048 private key,
+        producing a detached .sig file.</p>
 
-<div class="card shadow mb-4">
-
-    <div class="card-body">
-
-        <h2 class="card-title">
-            Document Signing Portal
-        </h2>
-
-        <p>
-            Upload a document to generate a digital signature.
-        </p>
-
-        <form action="/upload" method="POST" enctype="multipart/form-data">
-
-            <input type="file" name="document" class="form-control" required>
-
-            <br>
-
-            <button class="btn btn-primary" type="submit">
-                Sign Document
-            </button>
-
-        </form>
-
-    </div>
-
-</div>
-
-
-<div class="card shadow mb-4">
-
-    <div class="card-body">
-
-        <h2>
-            Verification Portal
-        </h2>
-
-        <p>
-            Verify document authenticity.
-        </p>
-
-        <a href="/verify-page" class="btn btn-success">
-            Verify Signature
-        </a>
-
-    </div>
-
-</div>
-
-
-<div class="card shadow mb-4">
-
-    <div class="card-body">
-
-        <h2>
-            Encryption Portal
-        </h2>
-
-        <p>
-            Encrypt sensitive documents using AES-256-GCM.
-        </p>
-
-        <a href="/encrypt-page" class="btn btn-warning">
-            Encrypt Document
-        </a>
-
-    </div>
-
-</div>
-
-<div class="card shadow mb-4">
-
-    <div class="card-body">
-
-        <h2>
-            Decryption Portal
-        </h2>
-
-        <p>
-            Recover encrypted documents.
-        </p>
-
-        <a href="/decrypt-page" class="btn btn-info">
-            Decrypt Document
-        </a>
-
-    </div>
-
-</div>
-
-
-<div class="card shadow">
-
-    <div class="card-body">
-
-        <h2>
-            Audit Trail
-        </h2>
-
-        <p>
-            View all cryptographic operations.
-        </p>
-
-        <a href="/audit-logs" class="btn btn-dark">
-            View Audit Logs
-        </a>
-
-    </div>
-
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <div class="field">
+            <label for="sign-document">Document</label>
+            <input type="file" id="sign-document" name="document" required>
+        </div>
+        <button class="btn btn-primary" type="submit">Sign document</button>
+    </form>
 </div>
 
 {% endblock %}

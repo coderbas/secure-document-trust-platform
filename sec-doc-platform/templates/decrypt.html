@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="panel">
+    <p class="panel-eyebrow">Operation 04</p>
+    <h2 class="panel-title">Decrypt a document</h2>
+    <p class="panel-desc">Upload a sealed .bin file to recover the original document and its extension.</p>
+
+    <form action="/decrypt" method="POST" enctype="multipart/form-data">
+        <div class="field">
+            <label for="decrypt-document">Encrypted file (.bin)</label>
+            <input type="file" id="decrypt-document" name="document" required>
+        </div>
+        <button class="btn btn-primary" type="submit">Decrypt document</button>
+    </form>
+</div>
+
+<a href="/" class="back-link">&larr; Back home</a>
+
+{% endblock %}

@@ -2,54 +2,47 @@
 
 {% block content %}
 
-<div class="card shadow">
+<div class="seal-wrap">
 
-    <div class="card-body">
+    {% if status == "valid" %}
 
-        <h2>
-            Operation Result
-        </h2>
-
-        <hr>
-
-        {% if status == "valid" %}
-
-        <div class="alert alert-success">
-
-            <h4>✓ VALID SIGNATURE</h4>
-
-            <p>
-                Document integrity verified.
-            </p>
-
-        </div>
-
-        {% elif status == "invalid" %}
-
-        <div class="alert alert-danger">
-
-            <h4>✗ INVALID SIGNATURE</h4>
-
-            <p>
-                Document has been modified or signature is incorrect.
-            </p>
-
-        </div>
-
-        {% else %}
-
-        <div class="alert alert-info">
-            {{ message }}
-        </div>
-
-        {% endif %}
-
-        <a href="/" class="btn btn-secondary">
-            Back Home
-        </a>
-
+    <div class="seal valid" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M20 6 9 17l-5-5" />
+        </svg>
     </div>
+    <h2 class="seal-status">Signature valid</h2>
+    <p class="seal-message">{{ message }}</p>
 
+    {% elif status == "invalid" %}
+
+    <div class="seal invalid" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M18 6 6 18M6 6l12 12" />
+        </svg>
+    </div>
+    <h2 class="seal-status">Signature invalid</h2>
+    <p class="seal-message">{{ message }}</p>
+
+    {% else %}
+
+    <div class="seal neutral" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M9 12l2 2 4-4M21 12a9 9 0 1 1-9-9 9 9 0 0 1 9 9z" />
+        </svg>
+    </div>
+    <h2 class="seal-status">Operation complete</h2>
+    <pre class="seal-detail">{{ message }}</pre>
+
+    {% endif %}
+
+</div>
+
+<div style="text-align: center;">
+    <a href="/" class="back-link">&larr; Back home</a>
 </div>
 
 {% endblock %}

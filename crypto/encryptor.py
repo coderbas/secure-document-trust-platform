@@ -30,6 +30,11 @@ def encrypt_file(file_path, key):
         None
     )
 
+    # Preserve the original extension (e.g. ".pdf") so it can be
+    # restored on decryption, instead of always producing a .txt file.
+    original_suffix = Path(file_path).suffix.encode("utf-8")
+    suffix_header = bytes([len(original_suffix)]) + original_suffix
+
     encrypted_file = (
         ENCRYPTED_DIR /
         f"{Path(file_path).stem}.bin"
@@ -37,6 +42,7 @@ def encrypt_file(file_path, key):
 
     with open(encrypted_file, "wb") as f:
         f.write(
+            suffix_header +
             nonce +
             ciphertext
         )
@@ -55,9 +61,12 @@ def decrypt_file(file_path, key):
     with open(file_path, "rb") as f:
         data = f.read()
 
-    nonce = data[:12]
+    suffix_len = data[0]
+    original_suffix = data[1:1 + suffix_len].decode("utf-8")
 
-    ciphertext = data[12:]
+    rest = data[1 + suffix_len:]
+    nonce = rest[:12]
+    ciphertext = rest[12:]
 
     plaintext = aesgcm.decrypt(
         nonce,
@@ -65,7 +74,7 @@ def decrypt_file(file_path, key):
         None
     )
 
-    return plaintext
+    return plaintext, original_suffix
 
 
 def decrypt_and_save(
@@ -77,14 +86,14 @@ def decrypt_and_save(
         exist_ok=True
     )
 
-    plaintext = decrypt_file(
+    plaintext, original_suffix = decrypt_file(
         encrypted_file,
         key
     )
 
     output_file = (
         DECRYPTED_DIR /
-        f"{Path(encrypted_file).stem}_decrypted.txt"
+        f"{Path(encrypted_file).stem}_decrypted{original_suffix}"
     )
 
     with open(
